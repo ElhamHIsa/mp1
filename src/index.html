@@ -1,13 +1,255 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>MP1</title>
-    </head>
-    <body>
-        <h1>Hello World! Welcome to MP1!</h1>
-        <img src="assets/image.jpg">
-    </body>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hassana Elham Isa</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Work+Sans:wght@400;500;600&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+</head>
+
+<body>
+
+  <nav id="navbar">
+    <a class="logo" href="#home">HEI</a>
+    <button class="menu-button" aria-label="Menu"><i class="fa-solid fa-bars"></i></button>
+    <ul class="menu">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#work">Research</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#video">Video</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <img class="mascot" src="assets/pas.png" alt="" />
+  </nav>
+
+  <header class="section hero" id="home">
+    <h1>Hassana Elham Isa</h1>
+    <p class="tagline">Chicago, Illinois</p>
+
+    <p class="intro">
+      I am a first year MCS student. I spend my time developing software for AI automation,
+      pipelines, and full-stack applications. In my free time you can catch me reading, rewatching my
+      favorite TV shows and movies, and sending memes to my friends. I am passionate about the
+      intersection of how humans and computers learn and interact with each other, and about building
+      better systems out of what we find there.
+    </p>
+    <p>
+      <a class="button" href="#work">See the work</a>
+      <a class="button outline" href="#contact">Get in touch</a>
+    </p>
+    <a class="scroll-arrow" href="#work" aria-label="Scroll down"><i class="fa-solid fa-arrow-down"></i></a>
+  </header>
+
+  <section class="section dark" id="work">
+    <h2>Research</h2>
+
+    <div class="carousel">
+      <div class="window">
+        <ul class="slides">
+
+          <li class="slide">
+            <img src="assets/fmri-brain.jpeg" alt="Brain imaging mesh" />
+            <div class="text">
+              <p class="label">Vanderbilt MIND Lab &middot; 2025&ndash;present</p>
+              <h3>fMRI: recursive versus iterative coding</h3>
+              <p>
+                Built the analysis pipelines for an fMRI study in which participants write recursive
+                and iterative code inside the scanner, asking how the brain distinguishes these two
+                modes of computation and how recursion in code relates to recursion in language. I
+                develop the preprocessing and denoising pipeline and the keystroke-to-volume
+                synchronization that aligns what participants typed, character by character, with the
+                imaging timeseries. That alignment is what makes trial-level cognition separable in
+                the signal.
+              </p>
+              <p class="tags">Python &middot; FSL &middot; FreeSurfer &middot; MeshLab</p>
+            </div>
+          </li>
+
+          <li class="slide">
+            <img src="assets/tokyo-night-vs-code-theme.png" alt="Code comparison" />
+            <div class="text">
+              <p class="label">UIUC Crowd Lab &middot; Summer 2024</p>
+              <h3>Equivalent mutants and an 80% ceiling</h3>
+              <p>
+                RIP classification models for telling equivalent mutants apart across 400 Java and
+                Python pairs. Accuracy plateaued near 80%, so I wrote unit tests to establish ground
+                truth on the disagreements and traced the ceiling to what the hypothesis class can
+                represent.
+              </p>
+              <p class="tags">Java &middot; Python &middot; Mutation testing</p>
+            </div>
+          </li>
+
+          <li class="slide">
+            <img src="assets/cib.png" alt="Encryption lattice" />
+            <div class="text">
+              <p class="label">Pioneer Research Institute &middot; 2022</p>
+              <h3>How much does quantum actually threaten AES and DES?</h3>
+              <p>
+                Authored a paper comparing the classical and quantum time complexities of brute-force
+                attacks on DES and AES, showing how a uniform quadratic speedup affects them
+                unevenly: it trivializes DES's 56-bit keys, weakens AES-128, and leaves AES-256
+                secure.
+              </p>
+              <p class="tags">Cryptography &middot; Quantum computing</p>
+            </div>
+          </li>
+
+        </ul>
+      </div>
+
+      <button class="arrow prev" aria-label="Previous"><i class="fa-solid fa-chevron-left"></i></button>
+      <button class="arrow next" aria-label="Next"><i class="fa-solid fa-chevron-right"></i></button>
+      <div class="dots"></div>
+    </div>
+  </section>
+
+  <section class="section" id="experience">
+    <h2>Industry</h2>
+
+    <div class="columns">
+
+      <article class="column">
+        <i class="fa-solid fa-robot"></i>
+        <h3>Pioneer Academics</h3>
+        <p class="label">AI Automation &middot; 2026</p>
+        <p>Building an admissions automation system that connects a Python service and LLMs to the
+          organization's CRM, scoring applications and routing them for reviewer decisions. Built for
+          oversight as much as speed: historical backtesting, audit logging, and cloud deployment.</p>
+      </article>
+
+      <article class="column">
+        <i class="fa-solid fa-database"></i>
+        <h3>HomeSpark AI</h3>
+        <p class="label">AI &amp; Tech Intern &middot; 2025</p>
+        <p>Cleaned and preprocessed two years of consumer trend data for LLM fine-tuning, where most
+          of the work was deciding what to throw away.</p>
+      </article>
+
+      <article class="column">
+        <i class="fa-solid fa-wand-magic-sparkles"></i>
+        <h3>Snap Inc.</h3>
+        <p class="label">AR Development Extern &middot; 2024</p>
+        <p>Built AR filters in JavaScript and Lens Studio, guided by a qualitative read of 70+
+          published lenses and the trends running through them.</p>
+      </article>
+
+      <article class="column">
+        <i class="fa-solid fa-compass"></i>
+        <h3>Cohort Advisor</h3>
+        <p class="label">Pioneer Research Institute &middot; 2024&ndash;2026</p>
+        <p>Technical and academic support for scholars across time zones and languages, plus the
+          logistics that keep a research cohort moving.</p>
+      </article>
+
+    </div>
+  </section>
+
+  <section class="section banner" id="projects">
+    <div class="banner-content">
+      <h2>Cool things I have built</h2>
+
+      <div class="cards">
+        <button class="card" data-modal="postcard">
+          <span class="hint">Immersion Showcase winner 2026</span>
+          <span>PostCard</span>
+          <span class="hint">See the build <i class="fa-solid fa-arrow-right"></i></span>
+        </button>
+        <button class="card" data-modal="vannect">
+          <span>Vannect</span>
+          <span class="hint">See the build <i class="fa-solid fa-arrow-right"></i></span>
+        </button>
+        <button class="card" data-modal="lenses">
+          <span>Snap AR Lenses</span>
+          <span class="hint">See the build <i class="fa-solid fa-arrow-right"></i></span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <section class="section video" id="video">
+  <div>
+    <h2>Recent Events</h2>
+    <p class="lede">I recently graduated with a degree in Computer Science from Vanderbilt
+      University. Always and forever, Anchor Down!</p>
+  </div>
+  <video controls preload="metadata">
+    <source src="assets/grad.mp4" type="video/mp4" />
+  </video>
+</section>
+
+  <footer class="section dark" id="contact">
+    <h2>Contact Me</h2>
+    <a class="email" href="mailto:eisa2@illinois.edu">eisa2@illinois.edu</a>
+
+    <ul class="socials">
+      <li><a href="https://www.linkedin.com/in/elham-isa" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a></li>
+      <li><a href="https://github.com/ElhamHIsa" aria-label="GitHub"><i class="fa-brands fa-github"></i></a></li>
+      <li><a href="mailto:eisa2@illinois.edu" aria-label="Email"><i class="fa-solid fa-envelope"></i></a></li>
+    </ul>
+
+    
+  </footer>
+
+  <div class="modal" id="postcard" hidden>
+    <div class="modal-box">
+      <button class="close" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+      <p class="label">Immersion Showcase winner &middot; 2026</p>
+      <h3>PostCard</h3>
+      <p>
+        A travel app built end to end in React Native. Node.js handles the REST APIs and
+        authentication flows, PostgreSQL sits on RDS, and the services run on EC2.
+      </p>
+      <p>
+        The coolest part is the AI agent, Posti: it takes a handful of stated preferences and returns
+        a day-by-day itinerary, plotted across your trips and a map, with the distance between each
+        location and suggested clothing for the weather.
+      </p>
+      <p class="tags">React Native &middot; Node.js &middot; PostgreSQL &middot; AWS EC2 &middot; RDS</p>
+    </div>
+  </div>
+
+  <div class="modal" id="vannect" hidden>
+    <div class="modal-box">
+      <button class="close" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+      <p class="label">Team project &middot; 2025</p>
+      <h3>Vannect</h3>
+      <p>
+        A web app for finding and joining campus events, built with React and Node.js on MongoDB.
+        Users authenticate, browse what is happening, and see the attendee list update in real time.
+      </p>
+      <p>
+        Working in a team meant the interesting problems were about agreeing on the data shape early
+        enough that the front end and the API stopped disagreeing about what an event was.
+      </p>
+      <p class="tags">React &middot; Node.js &middot; MongoDB &middot; CSS</p>
+    </div>
+  </div>
+
+  <div class="modal" id="lenses" hidden>
+    <div class="modal-box">
+      <button class="close" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+      <p class="label">Snap Inc. &middot; 2024</p>
+      <h3>Snap AR Lenses</h3>
+      <p>
+        AR filters built in JavaScript and Lens Studio during an externship with Snap. Before
+        building anything I read through 70+ published lenses to work out which effects people
+        actually kept using, and which were novelties that died in a week.
+      </p>
+      <p>
+        The prototypes that came out of it were pitched on that analysis, which turned out to be a
+        more convincing argument than the filters themselves.
+      </p>
+      <p class="tags">JavaScript &middot; Lens Studio &middot; AR design</p>
+    </div>
+  </div>
+
+</body>
+
 </html>

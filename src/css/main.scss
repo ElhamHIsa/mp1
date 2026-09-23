@@ -1,1 +1,648 @@
 /* Your SCSS here. */
+$ink: #0f1a1c;
+$pine: #1e5146;
+$pine-dark: #143b33;
+$sage: #e8ebe6;
+$line: #d7dcd5;
+$amber: #e8a33d;
+$paper: #f6f7f4;
+
+$display: 'Fraunces', Georgia, serif;
+$body: 'Work Sans', Arial, sans-serif;
+
+$max-width: 1120px;
+$tall-nav: 96px;
+$short-nav: 60px;
+$ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+$speed: 280ms;
+
+$breakpoints: (lg, 1366px) (md, 1024px) (sm, 768px) (xs, 560px);
+
+:root {
+  --navbar-height: #{$short-nav};
+}
+
+@mixin below($name) {
+  @each $key, $width in $breakpoints {
+    @if $key == $name {
+      @media (max-width: $width) { @content; }
+    }
+  }
+}
+
+@mixin center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin fluid($min, $max, $slope: 2.6vw) {
+  font-size: $min;
+  font-size: clamp(#{$min}, calc(#{$min * 0.65} + #{$slope}), #{$max});
+}
+
+%plain-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: $paper;
+  color: $ink;
+  font-family: $body;
+  font-size: 17px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+
+  &.locked { overflow: hidden; }
+}
+
+img, video { display: block; max-width: 100%; }
+
+h1, h2, h3 {
+  font-family: $display;
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.015em;
+  margin: 0 0 12px;
+}
+
+h1 { @include fluid(38px, 72px); }
+h2 { @include fluid(30px, 46px); }
+h3 { font-size: 22px; }
+
+p { margin: 0 0 16px; }
+
+a { color: inherit; text-decoration: none; }
+
+button {
+  font: inherit;
+  color: inherit;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  
+}
+
+:focus-visible { outline: 3px solid $amber; outline-offset: 3px; }
+
+.lede {
+  max-width: 48ch;
+  margin-bottom: 44px;
+  color: rgba($ink, 0.7);
+}
+
+.label {
+  font-size: 14px;
+  font-weight: 500;
+  color: $pine;
+  margin-bottom: 8px;
+}
+
+.tags {
+  font-size: 14px;
+  color: rgba($ink, 0.5);
+  margin: 0;
+}
+
+.section {
+  position: relative;
+  max-width: none;
+  padding: 110px 32px;
+  border-radius: 24px;
+  margin: 1.5rem;
+
+
+  > * { max-width: $max-width; margin-left: auto; margin-right: auto; }
+
+  @include below(md) { padding: 80px 28px; }
+  @include below(sm) { padding: 60px 20px; }
+
+  &.dark {
+    background: $pine-dark;
+    color: $sage;
+
+    h2 { color: $paper; }
+    .lede { color: rgba($paper, 0.78); }
+    .tags { color: rgba($paper, 0.55); }
+  }
+}
+
+#navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  height: $tall-nav;
+  padding: 0 32px;
+  background: rgba($paper, 0.88);
+  border-radius: 24px;
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid transparent;
+  transition: height $speed $ease, background $speed $ease, border-color $speed $ease;
+
+  @include below(sm) { padding: 0 20px; }
+
+  &.small {
+    height: $short-nav;
+    background: rgba($paper, 0.96);
+    border-bottom-color: $line;
+
+    .logo { font-size: 20px; }
+    .menu a { font-size: 15px; }
+    
+  }
+
+  .logo {
+    font-family: $display;
+    font-size: 24px;
+    font-weight: 600;
+    transition: font-size $speed $ease;
+  }
+
+    .mascot {
+    position: absolute;
+    right: 32px;
+    top: 100%;
+    height: 140px;
+    width: auto;
+    margin-top: -14px;
+    transform-origin: top center;
+    animation: swing 3s $ease infinite;
+
+    @include below(sm) { display: none; }
+  }
+
+  .menu {
+    @extend %plain-list;
+    display: flex;
+    align-items: center;
+    gap: 32px;
+
+    @include below(md) { gap: 22px; }
+
+    a {
+      position: relative;
+      display: inline-block;
+      padding: 6px 0;
+      font-size: 17px;
+      font-weight: 500;
+      color: rgba($ink, 0.68);
+      transition: color $speed $ease, font-size $speed $ease;
+
+      &::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        height: 2px;
+        background: $amber;
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform $speed $ease;
+      }
+
+      &:hover { color: $ink; }
+
+      &.current {
+        color: $ink;
+        font-weight: 600;
+
+        &::after { transform: scaleX(1); }
+      }
+    }
+  }
+
+  .menu-button {
+    display: none;
+    font-size: 20px;
+    padding: 8px;
+  }
+
+  @include below(sm) {
+    .menu-button { display: block; }
+
+    .menu {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0;
+      padding: 8px 20px 20px;
+      background: $paper;
+      border-bottom: 1px solid $line;
+      opacity: 0;
+      transform: translateY(-8px);
+      pointer-events: none;
+      transition: opacity $speed $ease, transform $speed $ease;
+
+      &.open {
+        opacity: 1;
+        transform: translateY(0);
+        pointer-events: auto;
+      }
+
+      a { display: block; padding: 12px 0; font-size: 17px; }
+    }
+  }
+}
+
+.hero {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 100vh;
+  padding-top: $tall-nav + 40px;
+  background:
+    radial-gradient(1100px 600px at 78% 18%, rgba($pine, 0.12), transparent 62%),
+    linear-gradient(180deg, $sage 0%, $paper 78%);
+
+  > * { width: 100%; }
+
+  .tagline {
+    font-size: 15px;
+    font-weight: 500;
+    color: $pine;
+    margin-bottom: 20px;
+  }
+
+  .intro {
+    max-width: 62ch;
+    margin-bottom: 34px;
+    font-size: 19px;
+    color: rgba($ink, 0.74);
+  }
+
+  @include below(sm) { min-height: 88vh; }
+
+  @media (max-height: 800px) and (min-width: 769px) { min-height: 640px; }
+}
+
+.scroll-arrow {
+  position: absolute;
+  left: 50%;
+  bottom: 34px;
+  @include center;
+  width: 46px;
+  height: 46px;
+  border: 1px solid rgba($ink, 0.2);
+  border-radius: 50%;
+  color: $pine;
+  animation: drift 2.6s $ease infinite;
+
+  @include below(sm) { display: none; }
+}
+
+.button {
+  display: inline-block;
+  margin-right: 12px;
+  padding: 14px 26px;
+  border-radius: 50px;
+  background: $pine;
+  color: $paper;
+  font-weight: 600;
+  transition: transform $speed $ease, background $speed $ease;
+clip-path: polygon(12% 0, 88% 0, 100% 50%, 88% 100%, 12% 100%, 0 50%);
+padding: 14px 36px;
+  &:hover { transform: translateY(-2px); background: $pine-dark; }
+
+  &.outline {
+    background: none;
+    color: $ink;
+    border: 1px solid rgba($ink, 0.25);
+
+    &:hover { background: rgba($ink, 0.05); }
+  }
+}
+
+.carousel {
+  position: relative;
+
+  .window { overflow: hidden; border-radius: 4px; }
+
+  .slides {
+    @extend %plain-list;
+    display: flex;
+    transition: transform 520ms $ease;
+  }
+
+  .arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    @include center;
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: $paper;
+    color: $ink;
+    box-shadow: 0 6px 22px rgba(0, 0, 0, 0.28);
+    transition: background $speed $ease;
+
+    &:hover { background: $amber; }
+    &.prev { left: -18px; }
+    &.next { right: -18px; }
+
+    @include below(md) {
+      &.prev { left: 6px; }
+      &.next { right: 6px; }
+    }
+  }
+
+  .dots {
+    @include center;
+    gap: 10px;
+    margin-top: 24px;
+  }
+
+  .dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: rgba($sage, 0.35);
+    transition: background $speed $ease, transform $speed $ease;
+
+    &.current { background: $amber; transform: scale(1.45); }
+  }
+}
+
+.slide {
+  flex: 0 0 100%;
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  min-height: 420px;
+  background: $pine;
+
+  @include below(sm) { grid-template-columns: 1fr; }
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+
+    @include below(sm) { height: 220px; }
+  }
+
+  .text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 46px;
+    color: rgba($paper, 0.85);
+
+    @include below(sm) { padding: 26px 20px; }
+  }
+
+  h3 {
+    @include fluid(24px, 34px);
+    color: $paper;
+  }
+
+  .label { color: $amber; }
+  .tags { color: rgba($paper, 0.6); }
+}
+
+.columns {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 38px;
+
+  @include below(md) { grid-template-columns: repeat(2, 1fr); }
+  @include below(xs) { grid-template-columns: 1fr; }
+}
+
+.column {
+  padding-top: 20px;
+  border-top: 2px solid $line;
+
+  i {
+    display: block;
+    font-size: 22px;
+    color: $pine;
+    margin-bottom: 14px;
+  }
+
+  h3 { font-size: 21px; margin-bottom: 4px; }
+
+  p:last-child {
+    margin: 0;
+    font-size: 16px;
+    color: rgba($ink, 0.72);
+  }
+}
+
+.banner {
+  display: flex;
+  align-items: center;
+  min-height: 90vh;
+  color: $paper;
+  background-image: url('../assets/1006-1200x800.jpg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+
+  h2 { color: $paper; }
+  .lede { color: rgba($paper, 0.8); }
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba($ink, 0.82), rgba($pine-dark, 0.88));
+  }
+
+  @include below(sm) { background-attachment: scroll; }
+
+  @media (max-height: 800px) and (min-width: 769px) { min-height: 620px; }
+}
+
+.banner-content {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+
+  @include below(sm) { grid-template-columns: 1fr; }
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 26px;
+  text-align: left;
+  background: rgba($paper, 0.08);
+  border: 1px solid rgba($paper, 0.22);
+  border-radius: 4px;
+  color: $paper;
+  font-family: $display;
+  font-size: 22px;
+  font-weight: 600;
+  transition: background $speed $ease, border-color $speed $ease;
+
+  &:hover { background: rgba($paper, 0.16); border-color: $amber; }
+
+  .hint {
+    font-family: $body;
+    font-size: 14px;
+    color: $amber;
+
+    i { margin-left: 6px; }
+  }
+}
+
+.video {
+  display: grid;
+  grid-template-columns: 0.85fr 1.15fr;
+  gap: 52px;
+  align-items: center;
+  max-width: $max-width + 64px;
+  margin: 0 auto;
+
+  @include below(md) { grid-template-columns: 1fr; gap: 30px; }
+
+  .lede { margin-bottom: 0; }
+
+  video {
+    width: 100%;
+    border-radius: 4px;
+    background: $ink;
+    box-shadow: 0 18px 46px rgba($ink, 0.18);
+  }
+}
+
+#contact {
+  background: $ink;
+
+  .email {
+    display: inline-block;
+    font-family: $display;
+    @include fluid(24px, 38px);
+    color: $amber;
+    border-bottom: 2px solid transparent;
+
+    &:hover { border-bottom-color: $amber; }
+  }
+
+  .fine {
+    margin: 40px 0 0;
+    font-size: 14px;
+    color: rgba($paper, 0.45);
+  }
+}
+
+.socials {
+  @extend %plain-list;
+  display: flex;
+  gap: 14px;
+  margin-top: 34px;
+
+  a {
+    @include center;
+    width: 46px;
+    height: 46px;
+    border: 1px solid rgba($paper, 0.24);
+    border-radius: 50%;
+    color: rgba($paper, 0.8);
+    transition: background $speed $ease, color $speed $ease, transform $speed $ease;
+
+    &:hover { background: $amber; color: $ink; transform: translateY(-3px); }
+  }
+}
+
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  @include center;
+  padding: 24px;
+  background: rgba($ink, 0.72);
+  animation: fade 220ms $ease both;
+
+  &[hidden] { display: none; }
+}
+
+.modal-box {
+  position: relative;
+  width: min(600px, 100%);
+  max-height: 84vh;
+  overflow-y: auto;
+  padding: 44px;
+  background: $paper;
+  border-radius: 4px;
+  animation: pop 300ms $ease both;
+
+  @include below(sm) { padding: 28px 20px; }
+
+  h3 { font-size: 30px; margin-bottom: 18px; }
+
+  p { color: rgba($ink, 0.78); }
+
+  .close {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    @include center;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+
+    &:hover { background: $line; }
+  }
+}
+
+@keyframes fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes pop {
+  from { opacity: 0; transform: translateY(14px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes drift {
+  0%, 100% { transform: translate(-50%, 0); }
+  50% { transform: translate(-50%, 8px); }
+}
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes swing {
+  0%, 100% { transform: rotate(-8deg); }
+  60% { transform: rotate(8deg); }
+}
+
+.hero > *:not(.scroll-arrow) { animation: rise 700ms $ease both; }
+
+@for $i from 1 through 4 {
+  .hero > *:nth-child(#{$i}):not(.scroll-arrow) { animation-delay: #{($i - 1) * 90}ms; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
